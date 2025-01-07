@@ -1,0 +1,19 @@
+{
+  "name": "demo_js",
+  "module": "src/index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.0",
+    "express": "^4.21.2",
+    "express.js": "^1.0.0"
+  },
+  "script": {
+    "dev": "bun src/index.ts"
+  }
+}
