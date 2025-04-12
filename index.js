@@ -3,6 +3,8 @@ import express from 'express'; // or: const express = require('express');
 
 const app = express();
 
+app.use(cors());
+
 const PORT = process.env.PORT || 8080;
 
 app.get('/api/problemset.problems', async (req, res) => {
