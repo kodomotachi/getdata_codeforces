@@ -3,7 +3,7 @@ import express from 'express'; // or: const express = require('express');
 
 const app = express();
 
-const PORT = 3000;
+const PORT = process.env.PORT || 8080;
 
 app.get('/', async (req, res) => {
 	const problems = await mongoUtils.returnData();
