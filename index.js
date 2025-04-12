@@ -5,11 +5,10 @@ const app = express();
 
 const PORT = process.env.PORT || 8080;
 
-app.get('/', async (req, res) => {
+app.get('/api/problemset.problems', async (req, res) => {
 	const problems = await mongoUtils.returnData();
 
 	res.status(200).json(problems[0]);
-//   res.send('Hello from localhost!');
 });
 
 app.listen(PORT, () => {
