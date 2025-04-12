@@ -1,5 +1,6 @@
 import * as mongoUtils from './fetchData.js';
 import express from 'express'; // or: const express = require('express');
+import cors from 'cors';
 
 const app = express();
 
