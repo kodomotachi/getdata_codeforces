@@ -1,5 +1,26 @@
 {
+  "name": "getdata_codeforces",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/kodomotachi/getdata_codeforces.github.io#readme",
+  "bugs": {
+    "url": "https://github.com/kodomotachi/getdata_codeforces.github.io/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kodomotachi/getdata_codeforces.github.io.git"
+  },
+  "license": "ISC",
+  "author": "KodomoTachi",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon --inspect index.js"
+  },
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "mongodb": "^6.15.0"
