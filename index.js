@@ -2,6 +2,7 @@ import * as mongoUtils from './fetchData.js';
 import * as codeforcesUtils from './ping.js';
 import express from 'express'; // or: const express = require('express');
 import './updateByTime.js';
+import cors from 'cors';
 
 const app = express();
 app.use(cors());
