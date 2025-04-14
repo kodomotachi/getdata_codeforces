@@ -7,7 +7,7 @@ const username = "kodomo_tachi";
 const password = process.env.PASSWORD;
 
 const codeforcesUrl = "https://codeforces.com/api/problemset.problems";
-const mongodbUrl = `mongodb+srv://kodomo_tachi:@cluster0.e6oezwc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+const mongodbUrl = `mongodb+srv://${username}:${password}@cluster0.e6oezwc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
 
 const client = new MongoClient(mongodbUrl);
 const dbName = "problemset";
