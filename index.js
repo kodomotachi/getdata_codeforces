@@ -4,6 +4,7 @@ import express from 'express'; // or: const express = require('express');
 import './updateByTime.js';
 
 const app = express();
+app.use(cors());
 
 const PORT = process.env.PORT || 8080;
 
