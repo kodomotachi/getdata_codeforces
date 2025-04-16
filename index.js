@@ -29,28 +29,41 @@ app.get('/api/problemset.problems', async (req, res) => {
 
 // get user's submission from request
 app.get('/api/user.status', async (req, res) => {
-	const handle = req.query.handle;
-	
-	if (!handle) {
-		res.status(400).json({ status: "FAILED", comment: "handle parameter is required" });
-	}
-	
-	const lowercaseHandle = handle.toLowerCase();
-
-	if (lowercaseHandle === "") {
-		res.status(400).json({ status: "FAILED", comment: "handle: Field should contain between 3 and 24 characters, inclusive"})
-	} else {
-		const data = await pingCheck(lowercaseHandle);
-
-		res.status(200).json(data[0]);
-
-		// const checkPing = await testing.pingCheck(lowercaseHandle);
+	try {
+		const handle = req.query.handle;
 		
-		// if (checkPing === true) {
-		// 	const fetchUserDataFromCodeforces = await userData.fetchUserDataFromCodeforces(handle);
-			
-		// 	res.status(200).json(fetchUserDataFromCodeforces);
-		// }
+		if (!handle) {
+			return res.status(400).json({ status: "FAILED", comment: "handle parameter is required" });
+		}
+		
+		const lowercaseHandle = handle.toLowerCase();
+
+		if (lowercaseHandle === "") {
+			return res.status(400).json({ status: "FAILED", comment: "handle: Field should contain between 3 and 24 characters, inclusive"});
+		} else {
+			const data = await pingCheck(lowercaseHandle);
+
+			// Check if data exists and has elements before accessing index 0
+			if (data && data.length > 0) {
+				return res.status(200).json(data[0]);
+			} else {
+				// Fallback to fetching data directly from Codeforces API
+				try {
+					const codeforcesData = await userData.fetchUserDataFromCodeforces(lowercaseHandle);
+					if (codeforcesData) {
+						return res.status(200).json(codeforcesData);
+					} else {
+						return res.status(404).json({ status: "FAILED", comment: "User data not found" });
+					}
+				} catch (error) {
+					console.error("Error fetching from Codeforces:", error);
+					return res.status(500).json({ status: "FAILED", comment: "Error fetching user data" });
+				}
+			}
+		}
+	} catch (error) {
+		console.error("Error in user.status endpoint:", error);
+		return res.status(500).json({ status: "FAILED", comment: "Internal server error" });
 	}
 });
 
