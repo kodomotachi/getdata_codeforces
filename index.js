@@ -45,7 +45,7 @@ app.get('/api/user.status', async (req, res) => {
 			
 			res.status(200).json(fetchUserDataFromCodeforces);
 		} else {
-			res.status(400).json({ "status": "FAILED", "comment": "handle: User with handle dskd not found" });
+			res.status(400).json({ "status": "FAILED", "comment": `handle: User with handle ${lowercaseHandle} not found` });
 		}
 	}
 });
