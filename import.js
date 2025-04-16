@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const username = "kodomo_tachi";
+const username = "kodomotachi2k4";
 const password = process.env.PASSWORD;
 
 const codeforcesUrl = "https://codeforces.com/api/problemset.problems";
