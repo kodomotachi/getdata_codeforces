@@ -30,12 +30,12 @@ app.get('/api/user.status', async (req, res) => {
 	const handle = req.query.handle;
 	
 	if (!handle) {
-		return res.status(400).json({ status: "FAILED", comment: "handle parameter is required" });
+		res.status(400).json({ status: "FAILED", comment: "handle parameter is required" });
 	}
 	
 	const lowercaseHandle = handle.toLowerCase();
 
-	if (lowercaseHandle === "") {
+	if (lowercaseHandle.length < 3 || lowercaseHandle.length > 24) {
 		res.status(400).json({ status: "FAILED", comment: "handle: Field should contain between 3 and 24 characters, inclusive"})
 	} else {
 		const checkPing = await userData.pingCheck(lowercaseHandle);
@@ -44,6 +44,8 @@ app.get('/api/user.status', async (req, res) => {
 			const fetchUserDataFromCodeforces = await userData.fetchUserDataFromCodeforces(handle);
 			
 			res.status(200).json(fetchUserDataFromCodeforces);
+		} else {
+			res.status(400).json({ "status": "FAILED", "comment": "handle: User with handle dskd not found" });
 		}
 	}
 });
