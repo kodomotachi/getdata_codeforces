@@ -55,4 +55,4 @@ async function fetchUserDataFromCodeforces(handle) {
 }
 
  // Export the function instead of immediately calling it
- export { updateUser, pingCheck };
+ export { fetchUserDataFromCodeforces, pingCheck };
