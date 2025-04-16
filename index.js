@@ -1,6 +1,7 @@
 import * as mongoUtils from './fetchData.js'; 
 import * as codeforcesUtils from './ping.js';
 import * as userData from './importUser.js';
+import { pingCheck } from './testing.js'; // just test mongodb
 import express from 'express'; // or: const express = require('express');
 import './updateByTime.js';
 import cors from 'cors';
@@ -31,7 +32,7 @@ app.get('/api/user.status', async (req, res) => {
 	const handle = req.query.handle;
 	
 	if (!handle) {
-		return res.status(400).json({ status: "FAILED", comment: "handle parameter is required" });
+		res.status(400).json({ status: "FAILED", comment: "handle parameter is required" });
 	}
 	
 	const lowercaseHandle = handle.toLowerCase();
@@ -39,13 +40,17 @@ app.get('/api/user.status', async (req, res) => {
 	if (lowercaseHandle === "") {
 		res.status(400).json({ status: "FAILED", comment: "handle: Field should contain between 3 and 24 characters, inclusive"})
 	} else {
-		const checkPing = await userData.pingCheck(lowercaseHandle);
+		const data = await pingCheck(lowercaseHandle);
+
+		res.status(200).json(data[0]);
+
+		// const checkPing = await testing.pingCheck(lowercaseHandle);
 		
-		if (checkPing === true) {
-			const fetchUserDataFromCodeforces = await userData.fetchUserDataFromCodeforces(handle);
+		// if (checkPing === true) {
+		// 	const fetchUserDataFromCodeforces = await userData.fetchUserDataFromCodeforces(handle);
 			
-			res.status(200).json(fetchUserDataFromCodeforces);
-		}
+		// 	res.status(200).json(fetchUserDataFromCodeforces);
+		// }
 	}
 });
 
