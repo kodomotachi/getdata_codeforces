@@ -1,6 +1,7 @@
 import * as mongoUtils from './fetchData.js'; 
 import * as codeforcesUtils from './ping.js';
 import * as userData from './importUser.js';
+import { dataContest, getDataFromDatabase, pingCheck } from './importContest.js';
 import express from 'express'; // or: const express = require('express');
 import './updateByTime.js';
 import cors from 'cors';
@@ -47,6 +48,21 @@ app.get('/api/user.status', async (req, res) => {
 		} else {
 			res.status(400).json({ "status": "FAILED", "comment": `handle: User with handle ${lowercaseHandle} not found` });
 		}
+	}
+});
+
+app.get('/api/contest.list', async (req, res) => {
+	const gymContest = req.query.gym;
+	const check = await pingCheck();
+
+	if (check === true) {
+		const data = await dataContest(gymContest);
+
+		res.status(200).json(data);
+	} else {
+		const data = await getDataFromDatabase(gymContest);
+
+		res.status(200).json(data[0]);
 	}
 });
 
