@@ -66,6 +66,17 @@ app.get('/api/contest.list', async (req, res) => {
 	}
 });
 
+// Use for Notion
+app.get('/api/notion/user.status', async (red, res) => {
+	const handle = req.query.handle;
+
+	const codeforcesUrl = "https://codeforces.com/api/user.status?handle=";
+	const response = await fetch(codeforcesUrl + handle);
+	const data = await response.json();
+
+	res.status(200).json(data.result);
+});
+
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
