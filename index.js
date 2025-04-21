@@ -67,7 +67,7 @@ app.get('/api/contest.list', async (req, res) => {
 });
 
 // Use for Notion
-app.get('/api/notion/user.status', async (red, res) => {
+app.get('/api/notion/user.status', async (req, res) => {
 	const handle = req.query.handle;
 
 	const codeforcesUrl = "https://codeforces.com/api/user.status?handle=";
